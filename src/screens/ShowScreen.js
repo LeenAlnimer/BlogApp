@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
-const ShowScreen = () => {
+import { Context } from "../context/BlogContext";
+
+const ShowScreen = ({ route }) => {
+  const { state } = useContext(Context);
+  const { id } = route.params;
+
+  const blogPost = state.find((post) => post.id === id);
+
   return (
-    <View>
-      <Text>Show Screen</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{blogPost?.title}</Text>
+      <Text style={styles.content}>Post ID: {blogPost?.id}</Text>
     </View>
   );
 };
-const styles = StyleSheet.create({});
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  content: {
+    fontSize: 18,
+  },
+});
+
 export default ShowScreen;
