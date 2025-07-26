@@ -11,20 +11,21 @@ import { Context } from "../context/BlogContext";
 import Feather from "@expo/vector-icons/Feather";
 
 const IndexScreen = () => {
-  const { state, addBlogPost } = useContext(Context);
+  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+
   return (
     <View>
       <Button title="Add Post" onPress={addBlogPost} />
       <FlatList
         data={state}
-        keyExtractor={(blogPosts) => blogPosts.title}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => {
           return (
             <View style={styles.row}>
-              <Text>
-                {item.title}-{item.id}
+              <Text style={styles.title}>
+                {item.title} - {item.id}
               </Text>
-              <TouchableOpacity onPress={() => console.log(item)}>
+              <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                 <Feather style={styles.icon} name="trash" />
               </TouchableOpacity>
             </View>
@@ -34,11 +35,13 @@ const IndexScreen = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 20,
+    paddingHorizontal: 10,
     borderTopWidth: 1,
     borderColor: "gray",
   },
@@ -47,6 +50,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 24,
+    padding: 5,
+    backgroundColor: "#eee",
+    borderRadius: 5,
   },
 });
+
 export default IndexScreen;

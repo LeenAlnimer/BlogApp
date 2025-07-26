@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Provider } from "./src/context/BlogContext";
 import IndexScreen from "./src/screens/IndexScreen";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
